@@ -255,7 +255,10 @@ const featuredVideo = mediaItems.find(item => item.featured) || mediaItems.find(
 const heroPhoto = mediaItems.find(item => item.type === "image");
 
 function encodePath(path) {
-  return path.split("/").map(encodeURIComponent).join("/");
+  return ("Shrikar_8th_birthday/" + path)
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/");
 }
 
 function friendlyLabel(item, index) {
