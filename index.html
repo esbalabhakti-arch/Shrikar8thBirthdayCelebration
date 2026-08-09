@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6c4cff" />
+  <meta name="description" content="Shrikar's 8th birthday photo and video album" />
+  <title>Shrikar Turns 8! 🎉</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --purple: #6c4cff;
+      --purple-dark: #4f32d8;
+      --pink: #ff4f9a;
+      --yellow: #ffd84d;
+      --cyan: #20c9d8;
+      --ink: #251f3f;
+      --muted: #6e6882;
+      --paper: #fffdf8;
+      --card: rgba(255, 255, 255, 0.88);
+      --shadow: 0 18px 50px rgba(45, 31, 89, 0.14);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 216, 77, .28), transparent 24rem),
+        radial-gradient(circle at 90% 5%, rgba(255, 79, 154, .18), transparent 24rem),
+        linear-gradient(180deg, #f7f3ff 0%, var(--paper) 42%, #f7fbff 100%);
+      font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    img, video { display: block; max-width: 100%; }
+
+    .confetti {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .confetti span {
+      position: absolute;
+      top: -12vh;
+      width: 10px;
+      height: 18px;
+      border-radius: 3px;
+      opacity: .55;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to { transform: translate3d(var(--drift), 115vh, 0) rotate(760deg); }
+    }
+
+    .page { position: relative; z-index: 1; }
+
+    .hero {
+      min-height: 72vh;
+      padding: 28px clamp(20px, 5vw, 72px) 64px;
+      display: grid;
+      place-items: center;
+    }
+    .hero-card {
+      width: min(1180px, 100%);
+      min-height: 560px;
+      border-radius: 36px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      background: #2f235d;
+      isolation: isolate;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(35, 25, 76, .93) 0%, rgba(35, 25, 76, .72) 48%, rgba(35, 25, 76, .18) 100%),
+        linear-gradient(0deg, rgba(35, 25, 76, .56), transparent 45%),
+        var(--hero-image) center/cover no-repeat;
+      z-index: -2;
+      transform: scale(1.01);
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -70px;
+      top: -110px;
+      border: 42px solid rgba(255,255,255,.14);
+      border-radius: 50%;
+      z-index: -1;
+    }
+    .hero-content {
+      min-height: 560px;
+      max-width: 690px;
+      padding: clamp(40px, 7vw, 88px);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(10px);
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
+    h1 {
+      margin: 20px 0 8px;
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(3.3rem, 9vw, 7.2rem);
+      line-height: .88;
+      letter-spacing: -.05em;
+      text-shadow: 0 7px 24px rgba(0,0,0,.18);
+    }
+    .hero-subtitle {
+      margin: 10px 0 28px;
+      max-width: 590px;
+      font-size: clamp(1.05rem, 2vw, 1.32rem);
+      line-height: 1.55;
+      color: rgba(255,255,255,.9);
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .button {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      background: var(--yellow);
+      color: #3d2d00;
+      box-shadow: 0 10px 25px rgba(255, 216, 77, .3);
+    }
+    .button-secondary {
+      color: white;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(8px);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 34px));
+      margin: -28px auto 0;
+      padding-bottom: 80px;
+    }
+    .album-panel {
+      background: var(--card);
+      border: 1px solid rgba(108, 76, 255, .12);
+      backdrop-filter: blur(14px);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 4vw, 40px);
+    }
+
+    .album-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .album-top h2 {
+      margin: 0;
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+    }
+    .album-top p { margin: 7px 0 0; color: var(--muted); }
+    .stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .stat {
+      padding: 9px 13px;
+      background: #f2efff;
+      color: var(--purple-dark);
+      border-radius: 999px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filters { display: flex; gap: 9px; flex-wrap: wrap; }
+    .filter-button {
+      border: 1px solid rgba(108,76,255,.16);
+      background: white;
+      color: var(--muted);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .filter-button:hover,
+    .filter-button.active {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+      box-shadow: 0 8px 20px rgba(108,76,255,.2);
+    }
+    .shuffle-button {
+      border: 0;
+      background: #fff3f8;
+      color: #b82d6a;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      gap: 14px;
+    }
+    .media-card {
+      border: 0;
+      padding: 0;
+      min-height: 230px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: #eae6f8;
+      box-shadow: 0 10px 25px rgba(37,31,63,.08);
+      transition: transform .24s ease, box-shadow .24s ease;
+    }
+    .media-card:hover,
+    .media-card:focus-visible {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 18px 35px rgba(37,31,63,.16);
+      outline: none;
+    }
+    .media-card.wide { grid-column: span 2; }
+    .media-card.tall { grid-row: span 2; min-height: 474px; }
+    .media-card img,
+    .media-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+    .media-card video { pointer-events: none; }
+    .media-card::after {
+      content: "";
+      position: absolute;
+      inset: 45% 0 0;
+      background: linear-gradient(transparent, rgba(20,13,48,.58));
+      opacity: .82;
+    }
+    .media-badge {
+      position: absolute;
+      z-index: 2;
+      left: 12px;
+      bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      color: var(--ink);
+      font-size: .78rem;
+      font-weight: 900;
+      box-shadow: 0 5px 14px rgba(0,0,0,.12);
+    }
+    .play-icon {
+      position: absolute;
+      z-index: 2;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: rgba(108,76,255,.88);
+      border: 3px solid rgba(255,255,255,.86);
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+      font-size: 1.25rem;
+    }
+    .featured-ribbon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--yellow);
+      color: #432f00;
+      font-size: .75rem;
+      font-weight: 900;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 50px 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 20px 46px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    footer strong { color: var(--purple); }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      place-items: center;
+      padding: 22px;
+      background: rgba(16, 10, 37, .94);
+      backdrop-filter: blur(12px);
+    }
+    .lightbox.open { display: grid; }
+    .lightbox-stage {
+      width: min(1200px, 100%);
+      height: min(86vh, 850px);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .lightbox-stage img,
+    .lightbox-stage video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.45);
+      background: black;
+    }
+    .lightbox-close,
+    .lightbox-nav {
+      position: absolute;
+      z-index: 2;
+      border: 0;
+      color: white;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+      display: grid;
+      place-items: center;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .lightbox-close:hover,
+    .lightbox-nav:hover { background: rgba(255,255,255,.24); }
+    .lightbox-close {
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.35rem;
+    }
+    .lightbox-nav {
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 64px;
+      border-radius: 16px;
+      font-size: 1.35rem;
+    }
+    .lightbox-nav:hover { transform: translateY(-50%) scale(1.05); }
+    .lightbox-prev { left: 18px; }
+    .lightbox-next { right: 18px; }
+    .lightbox-caption {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0,0,0,.45);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: .86rem;
+      white-space: nowrap;
+      max-width: calc(100% - 160px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 900px) {
+      .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero-card::before {
+        background:
+          linear-gradient(90deg, rgba(35,25,76,.88), rgba(35,25,76,.48)),
+          linear-gradient(0deg, rgba(35,25,76,.6), transparent 45%),
+          var(--hero-image) center/cover no-repeat;
+      }
+    }
+    @media (max-width: 680px) {
+      .hero { min-height: auto; padding: 16px 14px 48px; }
+      .hero-card, .hero-content { min-height: 520px; }
+      .hero-card { border-radius: 26px; }
+      .hero-content { padding: 34px 26px; justify-content: flex-end; }
+      .hero-card::before {
+        background:
+          linear-gradient(0deg, rgba(35,25,76,.96) 0%, rgba(35,25,76,.45) 68%, rgba(35,25,76,.18) 100%),
+          var(--hero-image) 58% center/cover no-repeat;
+      }
+      main { width: min(100% - 20px, 1180px); margin-top: -24px; }
+      .album-panel { padding: 20px 12px 28px; border-radius: 24px; }
+      .album-top { align-items: flex-start; flex-direction: column; }
+      .stats { justify-content: flex-start; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .media-card { min-height: 190px; border-radius: 15px; }
+      .media-card.tall { min-height: 389px; }
+      .lightbox { padding: 8px; }
+      .lightbox-nav { width: 40px; height: 54px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+      .lightbox-close { top: 8px; right: 8px; }
+      .lightbox-caption { bottom: 10px; max-width: calc(100% - 100px); }
+    }
+    @media (max-width: 420px) {
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .media-card.wide { grid-column: span 2; }
+      .hero-actions .button { width: 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="hero">
+      <section class="hero-card" id="heroCard">
+        <div class="hero-content">
+          <span class="eyebrow">🎂 August 2026 · Birthday Memories</span>
+          <h1>Shrikar<br />Turns 8!</h1>
+          <p class="hero-subtitle">
+            A day full of laughter, adventures, cake, friends, family, and wonderful memories. Thank you for celebrating with us!
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#album">📸 View the album</a>
+            <button class="button button-secondary" id="playFeatured" type="button">▶ Play birthday highlight</button>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main id="album">
+      <section class="album-panel" aria-labelledby="albumTitle">
+        <div class="album-top">
+          <div>
+            <h2 id="albumTitle">Birthday Moments ✨</h2>
+            <p>Tap any photo or video to open it full screen.</p>
+          </div>
+          <div class="stats" aria-label="Album totals">
+            <span class="stat" id="photoCount">0 Photos</span>
+            <span class="stat" id="videoCount">0 Videos</span>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="Filter album">
+            <button class="filter-button active" type="button" data-filter="all">All moments</button>
+            <button class="filter-button" type="button" data-filter="image">Photos</button>
+            <button class="filter-button" type="button" data-filter="video">Videos</button>
+          </div>
+          <button class="shuffle-button" id="shuffleButton" type="button">🔀 Shuffle</button>
+        </div>
+
+        <div class="gallery" id="gallery" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden>No items to show.</div>
+      </section>
+    </main>
+
+    <footer>
+      Made with love for <strong>Shrikar’s 8th birthday</strong> 🎈
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Album viewer" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close viewer">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous item">❮</button>
+    <div class="lightbox-stage" id="lightboxStage"></div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Next item">❯</button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
